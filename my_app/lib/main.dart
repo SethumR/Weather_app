@@ -10,174 +10,215 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Beautiful Weather App',
-      theme: ThemeData(
-        fontFamily: 'Montserrat', // You can add custom fonts if necessary
-        useMaterial3: true,
-      ),
+      title: 'Custom Weather App',
+      theme: ThemeData.dark(),
       home: const WeatherHomePage(),
     );
   }
 }
 
-class WeatherHomePage extends StatefulWidget {
+class WeatherHomePage extends StatelessWidget {
   const WeatherHomePage({super.key});
-
-  @override
-  State<WeatherHomePage> createState() => _WeatherHomePageState();
-}
-
-class _WeatherHomePageState extends State<WeatherHomePage> {
-  final List<Map<String, String>> forecastData = [
-    {"day": "Mon", "temperature": "24°C", "weather": "Sunny", "icon": "☀️"},
-    {"day": "Tue", "temperature": "21°C", "weather": "Cloudy", "icon": "☁️"},
-    {"day": "Wed", "temperature": "19°C", "weather": "Rainy", "icon": "🌧️"},
-    {"day": "Thu", "temperature": "25°C", "weather": "Clear", "icon": "🌤️"},
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      backgroundColor: const Color(0xFF1E1E2C),
       appBar: AppBar(
-        title: const Text('Beautiful Weather'),
-        backgroundColor: Colors.transparent,
         elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {},
+        ),
+        title: const Text("Weather App"),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(Icons.more_vert),
             onPressed: () {},
           ),
         ],
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF4A90E2), Color(0xFF50C9C3)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 100), // Space for transparent app bar
-            // Current Weather Section
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "New York",
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+            // City and Weather Information
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const Text(
+                    "Colombo, LK",
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  "25°C",
-                  style: TextStyle(
-                    fontSize: 60,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white,
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Good Morning",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white70,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  "Sunny",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white70,
+                  const SizedBox(height: 40),
+                  Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/cloud_lightning.png', // Placeholder for weather image
+                          width: 150,
+                          height: 150,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "21°C",
+                          style: TextStyle(
+                            fontSize: 80,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black.withOpacity(0.3),
+                                offset: const Offset(5, 5),
+                                blurRadius: 10,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 20),
-                Icon(
-                  Icons.wb_sunny,
-                  size: 80,
-                  color: Colors.yellowAccent,
-                ),
-              ],
-            ),
-            const SizedBox(height: 40),
-            // 5-Day Forecast Section
-            const Text(
-              "5-Day Forecast",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Thunderstorm",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Sunrise and Other Info
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildInfoCard(Icons.wb_sunny_outlined, "Sunrise", "5:45 AM"),
+                      _buildInfoCard(Icons.water_drop, "Humidity", "87%"),
+                      _buildInfoCard(Icons.cloud_queue_outlined, "Precipitation", "97%"),
+                    ],
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: forecastData.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                    padding: const EdgeInsets.all(16.0),
-                    width: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10,
-                          offset: Offset(0, 5),
-                        ),
-                      ],
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF50C9C3), Color(0xFF4A90E2)],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
+            // Week Forecast Section
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "This Week",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          forecastData[index]['day']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          forecastData[index]['icon']!,
-                          style: const TextStyle(
-                            fontSize: 40,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          forecastData[index]['temperature']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          forecastData[index]['weather']!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white70,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                  ),
+                  const SizedBox(height: 20),
+                  _buildForecastCard("Mon", "Rainy", "17°C", "🌧️"),
+                  _buildForecastCard("Tue", "Sunny", "16°C", "☀️"),
+                  _buildForecastCard("Wed", "Rainy", "18°C", "🌧️"),
+                  _buildForecastCard("Thu", "Thunder", "15°C", "🌩️"),
+                  _buildForecastCard("Fri", "Rainy", "14°C", "🌧️"),
+                ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  // Method to build individual forecast card
+  Widget _buildForecastCard(String day, String weather, String temp, String emoji) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        color: const Color(0xFF292B3B),
+        child: ListTile(
+          leading: Text(
+            day,
+            style: const TextStyle(
+              fontSize: 22,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          title: Text(
+            weather,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.white70,
+            ),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                temp,
+                style: const TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                emoji,
+                style: const TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Method to build info cards (Sunrise, Humidity, etc.)
+  Widget _buildInfoCard(IconData icon, String label, String value) {
+    return Column(
+      children: [
+        Icon(
+          icon,
+          color: Colors.white,
+          size: 28,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white70,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
