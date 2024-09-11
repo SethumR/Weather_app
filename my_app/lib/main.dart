@@ -10,10 +10,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather App',
+      title: 'Beautiful Weather App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Montserrat', // You can add custom fonts if necessary
+        useMaterial3: true,
       ),
       home: const WeatherHomePage(),
     );
@@ -29,38 +29,20 @@ class WeatherHomePage extends StatefulWidget {
 
 class _WeatherHomePageState extends State<WeatherHomePage> {
   final List<Map<String, String>> forecastData = [
-    {
-      "day": "Mon",
-      "temperature": "24°C",
-      "weather": "Sunny",
-      "icon": "☀️"
-    },
-    {
-      "day": "Tue",
-      "temperature": "21°C",
-      "weather": "Cloudy",
-      "icon": "☁️"
-    },
-    {
-      "day": "Wed",
-      "temperature": "19°C",
-      "weather": "Rainy",
-      "icon": "🌧️"
-    },
-    {
-      "day": "Thu",
-      "temperature": "25°C",
-      "weather": "Clear",
-      "icon": "🌤️"
-    },
+    {"day": "Mon", "temperature": "24°C", "weather": "Sunny", "icon": "☀️"},
+    {"day": "Tue", "temperature": "21°C", "weather": "Cloudy", "icon": "☁️"},
+    {"day": "Wed", "temperature": "19°C", "weather": "Rainy", "icon": "🌧️"},
+    {"day": "Thu", "temperature": "25°C", "weather": "Clear", "icon": "🌤️"},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Weather App'),
-        backgroundColor: Colors.blueAccent,
+        title: const Text('Beautiful Weather'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         centerTitle: true,
         actions: [
           IconButton(
@@ -69,11 +51,18 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF4A90E2), Color(0xFF50C9C3)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 100), // Space for transparent app bar
             // Current Weather Section
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -83,6 +72,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -91,7 +81,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                   style: TextStyle(
                     fontSize: 60,
                     fontWeight: FontWeight.w300,
-                    color: Colors.blueAccent,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -99,26 +89,25 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                   "Sunny",
                   style: TextStyle(
                     fontSize: 24,
-                    color: Colors.grey,
+                    color: Colors.white70,
                   ),
                 ),
                 const SizedBox(height: 20),
                 Icon(
                   Icons.wb_sunny,
                   size: 80,
-                  color: Colors.amber,
+                  color: Colors.yellowAccent,
                 ),
               ],
             ),
             const SizedBox(height: 40),
-
             // 5-Day Forecast Section
             const Text(
               "5-Day Forecast",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 10),
@@ -129,10 +118,22 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                 itemBuilder: (context, index) {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                    width: 100,
+                    padding: const EdgeInsets.all(16.0),
+                    width: 120,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.lightBlue[100],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF50C9C3), Color(0xFF4A90E2)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -142,6 +143,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
+                            color: Colors.white,
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -156,7 +158,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                           forecastData[index]['temperature']!,
                           style: const TextStyle(
                             fontSize: 18,
-                            color: Colors.blueAccent,
+                            color: Colors.white,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -164,7 +166,7 @@ class _WeatherHomePageState extends State<WeatherHomePage> {
                           forecastData[index]['weather']!,
                           style: const TextStyle(
                             fontSize: 14,
-                            color: Colors.grey,
+                            color: Colors.white70,
                           ),
                         ),
                       ],
