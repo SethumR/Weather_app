@@ -22,61 +22,57 @@ class WeatherHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final width = mediaQuery.size.width;
-    final height = mediaQuery.size.height;
-
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF2E3A59), Color(0xFF1E1E2C)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+      backgroundColor: const Color(0xFF1E1E2C),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {},
         ),
+        title: const Text("Weather App"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             // City and Weather Information
             Padding(
-              padding: EdgeInsets.all(width * 0.04),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     "Colombo, LK",
                     style: TextStyle(
-                      fontSize: width * 0.08,
+                      fontSize: 32,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: height * 0.01),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "Good Morning",
                     style: TextStyle(
-                      fontSize: width * 0.05,
+                      fontSize: 18,
                       color: Colors.white70,
                     ),
                   ),
-                  SizedBox(height: height * 0.05),
+                  const SizedBox(height: 40),
                   Stack(
                     children: [
-                      Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: RadialGradient(
-                                colors: [Colors.transparent, Colors.black.withOpacity(0.5)],
-                                radius: 0.6,
-                              ),
-                            ),
-                            child: Image.asset(
-                              'assets/cloud_lightning.png', // Placeholder for weather image
-                              width: width * 0.4,
-                              height: width * 0.4,
-                            ),
-                          ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/cloud_lightning.png', // Placeholder for weather image
+                          width: 150,
+                          height: 150,
                         ),
                       ),
                       Align(
@@ -84,7 +80,7 @@ class WeatherHomePage extends StatelessWidget {
                         child: Text(
                           "21°C",
                           style: TextStyle(
-                            fontSize: width * 0.2,
+                            fontSize: 80,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             shadows: [
@@ -99,15 +95,15 @@ class WeatherHomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: height * 0.01),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "Thunderstorm",
                     style: TextStyle(
-                      fontSize: width * 0.06,
+                      fontSize: 24,
                       color: Colors.white70,
                     ),
                   ),
-                  SizedBox(height: height * 0.02),
+                  const SizedBox(height: 20),
                   // Sunrise and Other Info
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,19 +118,19 @@ class WeatherHomePage extends StatelessWidget {
             ),
             // Week Forecast Section
             Padding(
-              padding: EdgeInsets.all(width * 0.04),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "This Week",
                     style: TextStyle(
-                      fontSize: width * 0.07,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: height * 0.02),
+                  const SizedBox(height: 20),
                   _buildForecastCard("Mon", "Rainy", "17°C", "🌧️"),
                   _buildForecastCard("Tue", "Sunny", "16°C", "☀️"),
                   _buildForecastCard("Wed", "Rainy", "18°C", "🌧️"),
@@ -205,7 +201,7 @@ class WeatherHomePage extends StatelessWidget {
           color: Colors.white,
           size: 28,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           label,
           style: const TextStyle(
@@ -213,7 +209,7 @@ class WeatherHomePage extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           value,
           style: const TextStyle(
