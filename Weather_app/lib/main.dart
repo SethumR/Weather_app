@@ -72,7 +72,7 @@ class WeatherHomePage extends StatelessWidget {
                         child: Image.asset(
                           'assets/cloud_lightning.png', // Placeholder for weather image
                           width: 150,
-                          height: 150,
+                          height: 100,
                         ),
                       ),
                       Align(
@@ -80,7 +80,7 @@ class WeatherHomePage extends StatelessWidget {
                         child: Text(
                           "21°C",
                           style: TextStyle(
-                            fontSize: 80,
+                            fontSize: 60,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             shadows: [
@@ -125,7 +125,7 @@ class WeatherHomePage extends StatelessWidget {
                   const Text(
                     "This Week",
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
