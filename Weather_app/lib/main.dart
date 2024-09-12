@@ -191,7 +191,8 @@ class WeatherHomePage extends StatelessWidget {
       ),
     );
   }
-
+  
+  
   // Method to build info cards (Sunrise, Humidity, etc.)
   Widget _buildInfoCard(IconData icon, String label, String value) {
     return Column(
