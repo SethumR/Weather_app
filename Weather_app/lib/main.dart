@@ -99,7 +99,7 @@ class WeatherHomePage extends StatelessWidget {
                   const Text(
                     "Thunderstorm",
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 28,
                       color: Colors.white70,
                     ),
                   ),
