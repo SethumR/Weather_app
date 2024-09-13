@@ -116,6 +116,7 @@ class WeatherHomePage extends StatelessWidget {
                 ],
               ),
             ),
+            
             // Week Forecast Section
             Padding(
               padding: const EdgeInsets.all(16.0),
