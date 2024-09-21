@@ -204,6 +204,7 @@ class WeatherHomePage extends StatelessWidget {
           color: Colors.white,
           size: 28,
         ),
+        
         const SizedBox(height: 8),
         Text(
           label,
